@@ -10,12 +10,12 @@ body {
 */	background-size: cover;
 }
 
-#title {
+#app h1 {
 	color: white;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-#title .highlight {
+#app h1 .highlight {
 	color: lightblue;
 	font-weight: bold;
 }

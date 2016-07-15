@@ -1,12 +1,11 @@
 import React from 'react';
-import Button from './button.jsx';
+import {Button} from './button.jsx';
 
-class Form extends React.Component {
+export default class Form extends React.Component {
 	render() {
-		return <div>
-				<input type='text' name='user' />
-				<br />
-				<Button/>
-			   </div>
+		return (<div>
+				  <input type='text' name='user' placeholder='Profile URL/Steam ID/Community ID'/>
+				  <Button/>
+			    </div>);
 	}
 }
