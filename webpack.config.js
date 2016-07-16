@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './app.jsx',
+	entry: './client/js/app.jsx',
 	output: { path: __dirname, filename: 'bundle.js' },
 	module: {
 		loaders: [
@@ -13,6 +13,14 @@ module.exports = {
 				query: {
 					presets: ['es2015', 'react']
 				}
+			}, 
+			{
+				test: /\.scss$/,
+				loaders: ['style', 'css', 'sass']
+			},
+			{
+				test: /\.(jpg|png)$/,
+				loader: 'file?name=[path][name].[hash].[ext]',
 			}
 		]
 	},
