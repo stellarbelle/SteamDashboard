@@ -1,25 +1,27 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router';
 
-export default class Form extends React.Component {
+class Form extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			user: '',
 			error: false,
-			renderUser: false
+			renderUser: false,
 		};
+		this.getIdData = this.getIdData.bind(this);
+		this.inputUserName = this.inputUserName.bind(this);
 	}
 
 	inputUserName(e) {
-		console.log(e.target.value);
 		this.setState({
 			user: e.target.value
 		});
-		console.log("user: ", this.state.user);
 	}
 
 	getIdData() {
-		console.log("user: ", this.state.user);
+		const user = this.refs.myInput.value;
+		this.props.router.replace('/about/' + user);
 		if (this.state.error == true) {
 			this.setState ({
 				error: false
@@ -49,24 +51,14 @@ export default class Form extends React.Component {
 		}
 	}
 
-	_renderUser() {
-		if(this.state.renderUser) {
-			return(
-				<div>
-					<h3>Welcome, {this.state.user}!</h3>
-				</div>
-			)
-		} else {
-			return null;
-		}
-	}
-
 	render() {
 		return (<div className='idInput'>
-				  <input type='text' name='user' onChange={this.inputUserName.bind(this)} placeholder='Profile URL/Steam ID/Community ID'/>
-				  <button type="button" onClick={this.getIdData.bind(this)} >Search</button>
+				  <input type='text' name='user' onChange={this.inputUserName} placeholder='Profile URL/Steam ID/Community ID'
+				  ref="myInput" />
+				  <button type="button" onClick={this.getIdData} >Search</button>
 				  {this._renderError()}
-				  {this._renderUser()}
 			    </div>);
 	}
 }
+
+export default withRouter(Form);

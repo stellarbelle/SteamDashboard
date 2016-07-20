@@ -5,9 +5,13 @@
   "main": "index.js",
   "author": "stella heath",
   "license": "ISC",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
   "dependencies": {
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "react-router": "^2.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
