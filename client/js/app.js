@@ -3,6 +3,8 @@ import { Router, Route, Link, browserHistory, hashHistory, IndexRoute  } from 'r
 // import SteamLink from './steamLink';
 import Dash from './dash';
 
+require('../css/styles.scss');
+
 export default class App extends React.Component {
 	constructor() {
 		super();
@@ -67,8 +69,9 @@ const Title = () => {
 
 const SteamLink = () => {
 	return (
-		<div className='idInput'>
-			<button type="button"><a href="http://localhost:10666/auth/?openid=http%3A%2F%2Fsteamcommunity.com%2Fopenid">Login</a></button>
-		</div>
+		<form className="idInput" method="get" action="/auth/">
+			<input type="hidden" name="openid" value="http://steamcommunity.com/openid" />
+			<input type="submit" value="Login" />
+		</form>
 	);
 };

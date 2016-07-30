@@ -13,7 +13,7 @@ module.exports = {
 				query: {
 					presets: ['es2015', 'react']
 				}
-			}, 
+			},
 			{
 				test: /\.scss$/,
 				loaders: ['style', 'css', 'sass']
@@ -24,4 +24,17 @@ module.exports = {
 			}
 		]
 	},
+
+	devServer: {
+		proxy: {
+			'/api/*': {
+				target: 'http://localhost:10666',
+				secure: false
+			},
+			'/auth/*': {
+				target: 'http://localhost:10666',
+				secure: false
+			}
+		}
+	}
 };
