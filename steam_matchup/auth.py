@@ -24,10 +24,7 @@ def on_success(context, request, openid_data):
     url_parts = parse.urlparse(identity_url)
     profile_id = url_parts.path.split('/')[-1]
 
-    dashboard_url = request.session.get('redirect_url', '/')
-    dashboard_url += '?profile_id=' + profile_id
-
-    response = HTTPTemporaryRedirect(dashboard_url)
+    response = HTTPTemporaryRedirect('/')
     response.set_cookie(
         'profile_id', profile_id,
     )
