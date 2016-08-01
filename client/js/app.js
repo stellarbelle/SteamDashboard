@@ -43,7 +43,7 @@ export default class App extends React.Component {
 		console.log("render profile");
 		if (this.state.profile_id) {
 			// var url = "http://www.omdbapi.com/?i=tt0944947&Season=1";
-			var url ='http://localhost:10666/api/gamers?gamerId=' + this.state.profile_id;
+			var url ='/api/gamers?gamerId=' + this.state.profile_id;
 			Request.get(url).then((response) => {
 				console.log("response: ", response);
 				console.log("store: ", this.props);
