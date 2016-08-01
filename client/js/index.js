@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { AppConnected } from './actions';
 import { createStore } from 'redux';
-import userGames from './reducers';
+import userInfo from './reducers';
 require('../css/styles.scss');
 
 let store = createStore(userInfo);
