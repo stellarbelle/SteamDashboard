@@ -1,8 +1,8 @@
 
-const steamApp = (state = {
+const currentUserData = (state = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    user: {}
 }, action) => {
     switch(action.type) {
         case "REQUEST_USER":
@@ -15,11 +15,14 @@ const steamApp = (state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
-                user: action.user,
+                user: {
+                    img: 'hello-world',
+                    name: action.user.name,
+                }
             });
         default:
             return state
     }
 };
 
-export default steamApp;
+export default currentUserData;

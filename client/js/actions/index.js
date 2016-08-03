@@ -1,5 +1,3 @@
-// import App from '../app';
-// import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch'
 
 export const requestUserData = () => {
@@ -10,35 +8,18 @@ export const requestUserData = () => {
 
 export const receiveUserData = (response) => {
     return {
-        user: response,
+        user: response.results[0],
         type: 'RECEIVE_USER',
     }
 };
 
 export const getUserInfo = (userId) => {
+    var url ='/api/gamers?gamerId=' + userId;
     return dispatch => {
         dispatch(requestUserData());
-        return fetch('http://localhost:10666/api/gamers?gamerId=' + userId)
-            .then(response => dispatch(receiveUserData(response)));
+        return fetch(url)
+            .then(response => response.json())
+            .then(json => dispatch(receiveUserData(json)));
     }
 };
-
-// const mapStateToProps = (state) => {
-//     return {
-//         user: state.user
-//     };
-// }
-//
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onPopulateUser: (userId) => {
-//             dispatch(fetchUserInfo(userId))
-//         }
-//     }
-// };
-//
-// export const AppConnected = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(App);
 

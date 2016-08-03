@@ -1,7 +1,6 @@
 import React from 'react';
 
-const UserInfo = ({ value }) => {
-    console.log("store UserInfo: ", value)
+const UserInfo = () => {
     return (
         <p>Hello World</p>
     )

@@ -7,9 +7,13 @@ import { connect } from 'react-redux';
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            id: ""
+        }
     }
 
-    GetProfileId(name) {
+    componentDidMount() {
+        let name = "profile_id";
         const { dispatch } = this.props;
         let nameEQ = name + "=";
         let ca = document.cookie.split(';');
@@ -23,20 +27,26 @@ class Profile extends React.Component {
                 var id = c.substring(nameEQ.length,c.length);
                 console.log("props: ", this.props);
                 dispatch(getUserInfo(id));
-                return <Dash />;
-            } else {
-                return <SteamLink />
+                this.setState ({
+                    id,
+                })
             }
         }
     };
 
-
+    GetProfileInfo() {
+        if(this.state.id) {
+            return <Dash user={this.props.user}/>
+        } else {
+            return <SteamLink />
+        }
+    }
 
     render() {
          return (
              <div>
                  <Title />
-                 {this.GetProfileId("profile_id")}
+                 {this.GetProfileInfo()}
              </div>
          )
     }

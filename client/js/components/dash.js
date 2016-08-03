@@ -1,36 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 export default class Dash extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			stats: {
-				hours: 2813,
-				games: 412,
-				value: 4964,
-		 	},
-			games: [
-				{'img': '', 'name': 'QuakeLIVE!', 'timePlayed': '23 hours', 'platforms': 'Windows', 'features': '...', 'metascore': '-'},
-				{'img': '', 'name': 'DOTA 2', 'timePlayed': '4 hours', 'platforms': 'Windows', 'features': 'Co-op', 'metascore': '90'},
-				{'img': '', 'name': 'CS:GO', 'timePlayed': '0.5 hours', 'platforms': 'Windows, Mac', 'features': '...', 'metascore': '83'}
-			],
-			img: "https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/1378588_10151919808711620_186028602_n.jpg?oh=614001a42a8d746b465a1817df2096a4&oe=5821DA59",
-			name: this.props.name,
-			online: false,
-			profileAge: 12
-		}
 	}
 	render() {
+		let user = this.props;
+		console.log("user: ", this.props);
 		return (
 			<div>
 				<User 
-					img={this.state.img} 
-					name={this.state.name}
-					online={this.state.online} 
+					img={user.img}
+					name={user.name}
+					online={user.online}
 				/>
-				<Created age={this.state.profileAge} />
-				<Stats stats={this.state.stats} />
-				<Games games={this.state.games} />
+				<Created age={user.age} />
+				<Stats stats={user.stats} />
+				<Games games={user.games} />
 			</div>
 		)
 	}
@@ -40,7 +27,15 @@ const Created = (props) => {
 	return(
 		<h1>Profile created: {props.age} years ago</h1>
 	)
-} 
+};
+
+const mapStateToCreatedProps = function(state) {
+	return {
+		age: state.user.age
+	};
+};
+
+const ConnectedCreated = connect(mapStateToCreatedProps)(Created);
 
 const Online = (props) => {
 	if(props.online) {
