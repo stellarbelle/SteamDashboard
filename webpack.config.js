@@ -36,5 +36,7 @@ module.exports = {
 				secure: false
 			}
 		}
-	}
+	},
+
+	devtool: '#inline-source-map'
 };
