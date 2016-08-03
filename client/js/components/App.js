@@ -1,12 +1,22 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { render } from 'react-dom';
-import { AppConnected } from './actions';
-import { createStore } from 'redux';
-import userInfo from './reducers';
-require('../css/styles.scss');
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import UserInfo from "./UserInfo";
+import steamApp from '../reducers/userReducer';
+import Profile from './profile';
 
-let store = createStore(userInfo);
+export const store = applyMiddleware(
+    thunkMiddleware
+)(createStore)(steamApp);
+
+const App = () => (
+    <div>
+        <UserInfo />
+        <Profile />
+    </div>
+);
+
+export default App;
 
 // http://localhost:10666/api/gamers?gamerId=76561198067052329
 // "results" is a list of dictionaries
@@ -33,11 +43,3 @@ let store = createStore(userInfo);
 //          }
 //        }
 // }
-
-render(
-    <Provider store={store}>
-        <AppConnected />
-    </Provider>,
-    document.getElementById('app')
-);
-

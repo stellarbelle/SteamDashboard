@@ -8,7 +8,7 @@ export default class Dash extends React.Component {
 				hours: 2813,
 				games: 412,
 				value: 4964,
-			},
+		 	},
 			games: [
 				{'img': '', 'name': 'QuakeLIVE!', 'timePlayed': '23 hours', 'platforms': 'Windows', 'features': '...', 'metascore': '-'},
 				{'img': '', 'name': 'DOTA 2', 'timePlayed': '4 hours', 'platforms': 'Windows', 'features': 'Co-op', 'metascore': '90'},
