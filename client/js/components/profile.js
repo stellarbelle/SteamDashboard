@@ -3,6 +3,7 @@ import React from 'react';
 import { getUserInfo } from '../actions/index';
 import Dash from './dash';
 import { connect } from 'react-redux';
+import { store } from './App'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class Profile extends React.Component {
     };
 
     GetProfileInfo() {
+        console.log("Dash props: ", this.props.user);
         if(this.state.id) {
             return <Dash user={this.props.user}/>
         } else {
@@ -69,6 +71,8 @@ const SteamLink = () => {
 
 
 const mapStateToProps = (state) => {
+    console.log("mapStateToProps state: ", state);
+    console.log("profile store: ", store.getState());
     return state;
 };
 

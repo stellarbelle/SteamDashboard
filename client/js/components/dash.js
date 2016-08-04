@@ -6,8 +6,12 @@ export default class Dash extends React.Component {
 		super(props);
 	}
 	render() {
-		let user = this.props;
-		console.log("user: ", this.props);
+		var user = this.props;
+		console.log("user1: ", user, "name: ", user.name);
+		// console.log("name: ", this.props.name);
+		for (var i=0; i<user.length; i++) {
+
+		}
 		return (
 			<div>
 				<User 
@@ -15,7 +19,6 @@ export default class Dash extends React.Component {
 					name={user.name}
 					online={user.online}
 				/>
-				<Created age={user.age} />
 				<Stats stats={user.stats} />
 				<Games games={user.games} />
 			</div>
@@ -23,19 +26,19 @@ export default class Dash extends React.Component {
 	}
 }
 
-const Created = (props) => {
-	return(
-		<h1>Profile created: {props.age} years ago</h1>
-	)
-};
-
-const mapStateToCreatedProps = function(state) {
-	return {
-		age: state.user.age
-	};
-};
-
-const ConnectedCreated = connect(mapStateToCreatedProps)(Created);
+// const Created = (props) => {
+// 	return(
+// 		<h1>Profile created: {props.age} years ago</h1>
+// 	)
+// };
+//
+// const mapStateToCreatedProps = function(state) {
+// 	return {
+// 		age: state.user.age
+// 	};
+// };
+//
+// const ConnectedCreated = connect(mapStateToCreatedProps)(Created);
 
 const Online = (props) => {
 	if(props.online) {
@@ -56,6 +59,7 @@ const User = (props) => {
 }
 
 const Games = (props) => {
+	console.log("games: ", props.games);
 	let gameRows = [];
 	let games = props.games;
 	for(var index in games) {
@@ -90,23 +94,12 @@ const Games = (props) => {
 			</table>
 		</div>
 	);
-}
-
-const Stats = (props) => {
-	let columns = [
-		{'key': 'hours', 'title': 'hours on record'},
-		{'key': 'games', 'title': 'games owned'},
-		{'key': 'value', 'title': 'account value'},
-	];
-	return(
-		<Table data={props.stats} columns={columns} />
-	);
-} 
+};
 
 const Table = (props) => {
 	let tableHeaderRow = [];
 	let tableDataRow = [];
-	let headerData = props.data;
+	let headerData = props.stats;
 	let columns = props.columns;
 	var count = 0;
 	for (var item in columns) {
@@ -132,8 +125,20 @@ const Table = (props) => {
 			</table>
 		</div>
 	);
-}
+};
 
 Dash.propTyes = {
 	name: React.PropTypes.string.isRequired
-}
+};
+
+const Stats = (props) => {
+	console.log("state props: ", props);
+	let columns = [
+		{'key': 'hours', 'title': 'hours on record'},
+		{'key': 'games', 'title': 'games owned'},
+		{'key': 'value', 'title': 'account value'},
+	];
+	return(
+		<Table stats={props.stats} columns={columns} />
+	);
+};
