@@ -37,10 +37,16 @@ class Profile extends React.Component {
 
     GetProfileInfo() {
         console.log("Dash props: ", this.props.user);
+        var user = this.props.user;
         if(this.state.id) {
-            return <Dash user={this.props.user}/>
+            return (
+                <div>
+                    <img src={user.img} alt="profile pic" />
+                    <h1>{user.name}</h1>
+                </div>
+            )
         } else {
-            return <SteamLink />
+            return <p>Hello World</p>
         }
     }
 
