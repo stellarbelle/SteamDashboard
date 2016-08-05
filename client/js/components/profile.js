@@ -5,12 +5,12 @@ import Dash from './dash';
 import { connect } from 'react-redux';
 import { store } from './App'
 
+
+var stateStatus;
+
 class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: ""
-        }
     }
 
     componentDidMount() {
@@ -36,17 +36,14 @@ class Profile extends React.Component {
     };
 
     GetProfileInfo() {
-        console.log("Dash props: ", this.props.user);
-        var user = this.props.user;
-        if(this.state.id) {
+        if(stateStatus) {
+            console.log("Dash props: ", this.props.user);
+            var user = this.props.user;
             return (
-                <div>
-                    <img src={user.img} alt="profile pic" />
-                    <h1>{user.name}</h1>
-                </div>
+                <Dash user={user} />
             )
         } else {
-            return <p>Hello World</p>
+            return <p>Loading...</p>
         }
     }
 
@@ -75,11 +72,19 @@ const SteamLink = () => {
     );
 };
 
-
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps state: ", state);
-    console.log("profile store: ", store.getState());
-    return state;
+    if (!state || !state.user) {
+        stateStatus = false;
+        return {}
+    } else {
+        console.log("mapStateToProps state: ", state);
+        console.log("profile store: ", store.getState());
+        console.log("user: ", store.getState().user);
+        stateStatus = true;
+        return {
+            user: state.user
+        }
+    }
 };
 
 export default connect(mapStateToProps)(Profile);
