@@ -6,7 +6,7 @@ export default class Dash extends React.Component {
 		super(props);
 	}
 	render() {
-		var user = this.props;
+		var user = this.props.user;
 		console.log("user1: ", this.props, "name: ", user.name);
 		return (
             <div>
