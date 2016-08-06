@@ -14,7 +14,6 @@ export const store = createStore(
 );
 
 const App = () => {
-    console.log("App store: ", store.getState());
     return (
         <div>
             <Profile />

@@ -5,12 +5,12 @@ import Dash from './dash';
 import { connect } from 'react-redux';
 import { store } from './App'
 
-
-var stateStatus;
-
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            id: ''
+        }
     }
 
     componentDidMount() {
@@ -24,26 +24,25 @@ class Profile extends React.Component {
                 c = c.substring(1,c.length);
             }
             if (c.indexOf(nameEQ) == 0) {
-                console.log("profile id: ", c.substring(nameEQ.length,c.length));
                 var id = c.substring(nameEQ.length,c.length);
-                console.log("props: ", this.props);
-                dispatch(getUserInfo(id));
                 this.setState ({
                     id,
-                })
+                });
+                dispatch(getUserInfo(id));
             }
         }
     };
 
     GetProfileInfo() {
-        if(stateStatus) {
-            console.log("Dash props: ", this.props.user);
-            var user = this.props.user;
-            return (
-                <Dash user={user} />
-            )
-        } else {
-            return <p>Loading...</p>
+        if (!this.props.isFetching){
+            if (!this.state.id) {
+                return <SteamLink />
+            } else {
+                var user = this.props.user;
+                return (
+                    <Dash user={user} />
+                )
+            }
         }
     }
 
@@ -73,14 +72,11 @@ const SteamLink = () => {
 };
 
 const mapStateToProps = (state) => {
-    if (!state || !state.user) {
-        stateStatus = false;
+    if (!state) {
         return {}
+    } else if (state.isFetching){
+        return state
     } else {
-        console.log("mapStateToProps state: ", state);
-        console.log("profile store: ", store.getState());
-        console.log("user: ", store.getState().user);
-        stateStatus = true;
         return {
             user: state.user
         }

@@ -7,7 +7,6 @@ export default class Dash extends React.Component {
 	}
 	render() {
 		var user = this.props.user;
-		console.log("user1: ", this.props, "name: ", user.name);
 		return (
             <div>
                 <img src={user.img} alt="profile pic" />
@@ -36,12 +35,3 @@ export default class Dash extends React.Component {
 Dash.propTyes = {
 	name: React.PropTypes.string.isRequired
 };
-
-const mapStateToProps = (state) => {
-    console.log("map dash: ", state);
-    return {
-        user: state.user
-    }
-};
-
-export default connect(mapStateToProps)(Dash);
