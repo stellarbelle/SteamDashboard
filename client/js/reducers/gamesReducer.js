@@ -1,22 +1,22 @@
 
-const currentUserData = (state = {
+const currentGamesData = (state = {
     isFetching: false,
 }, action) => {
     switch(action.type) {
-        case "REQUEST_USER":
+        case "REQUEST_GAMES":
             return {
                 ...state,
                 isFetching: true,
             };
-        case "RECEIVE_USER":
+        case "RECEIVE_GAMES":
             return  {
                 ...state,
                 isFetching: false,
-                user: action.user
+                games: action.games
             };
         default:
             return state
     }
 };
 
-export default currentUserData;
+export default currentGamesData;

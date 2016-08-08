@@ -1,9 +1,7 @@
 import React from 'react';
-// import SteamLink from './steamLink';
 import { getUserInfo } from '../actions/index';
-import Dash from './dash';
+import ConnectedDash from './dash';
 import { connect } from 'react-redux';
-import { store } from './App'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -33,14 +31,13 @@ class Profile extends React.Component {
         }
     };
 
-    GetProfileInfo() {
+    getProfileInfo() {
         if (!this.props.isFetching){
             if (!this.state.id) {
                 return <SteamLink />
             } else {
-                var user = this.props.user;
                 return (
-                    <Dash user={user} />
+                    <ConnectedDash />
                 )
             }
         }
@@ -50,7 +47,7 @@ class Profile extends React.Component {
          return (
              <div>
                  <Title />
-                 {this.GetProfileInfo()}
+                 {this.getProfileInfo()}
              </div>
          )
     }
@@ -74,11 +71,11 @@ const SteamLink = () => {
 const mapStateToProps = (state) => {
     if (!state) {
         return {}
-    } else if (state.isFetching){
-        return state
+    } else if (state.currentUserData.isFetching){
+        return state.currentUserData
     } else {
         return {
-            user: state.user
+            user: state.currentUserData.user
         }
     }
 };

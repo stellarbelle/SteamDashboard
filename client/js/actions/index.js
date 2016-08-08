@@ -23,3 +23,25 @@ export const getUserInfo = (userId) => {
     }
 };
 
+export const requestGameData = () => {
+    return {
+        type: 'REQUEST_GAMES',
+    }
+};
+
+export const receiveGameData = (response) => {
+    return {
+        games: response,
+        type: 'RECEIVE_GAMES',
+    }
+};
+
+export const getGameInfo = (games) => {
+    var url ='/api/games?' + games;
+    return dispatch => {
+        dispatch(requestGameData());
+        return fetch(url)
+            .then(response => response.json())
+            .then(json => dispatch(receiveGameData(json)));
+    }
+};
