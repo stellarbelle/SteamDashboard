@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserInfo } from '../actions/index';
-import ConnectedDash from './dash';
+import ConnectedDash from './Dash';
 import { connect } from 'react-redux';
 
 class Profile extends React.Component {
@@ -16,8 +16,7 @@ class Profile extends React.Component {
         const { dispatch } = this.props;
         let nameEQ = name + "=";
         let ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
+        ca.map(c => {
             while (c.charAt(0)==' ') {
                 c = c.substring(1,c.length);
             }
@@ -28,7 +27,7 @@ class Profile extends React.Component {
                 });
                 dispatch(getUserInfo(id));
             }
-        }
+        });
     };
 
     getProfileInfo() {

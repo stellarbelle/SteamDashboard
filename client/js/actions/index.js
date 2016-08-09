@@ -14,9 +14,10 @@ export const receiveUserData = (response) => {
 };
 
 export const getUserInfo = (userId) => {
-    var url ='/api/gamers?gamerId=' + userId;
     return dispatch => {
         dispatch(requestUserData());
+        var url = new URL('/api/gamers', document.baseURI);
+        url.searchParams.append('gamerId', userId);
         return fetch(url)
             .then(response => response.json())
             .then(json => dispatch(receiveUserData(json)));
@@ -36,10 +37,11 @@ export const receiveGameData = (response) => {
     }
 };
 
-export const getGameInfo = (games) => {
-    var url ='/api/games?' + games;
+export const getGameInfo = (gameIds) => {
     return dispatch => {
         dispatch(requestGameData());
+        var url = new URL('/api/games', document.baseURI);
+        gameIds.forEach(gameId => url.searchParams.append('gameId', gameId));
         return fetch(url)
             .then(response => response.json())
             .then(json => dispatch(receiveGameData(json)));

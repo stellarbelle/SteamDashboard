@@ -8,48 +8,42 @@ class Dash extends React.Component {
     }
 
     componentDidMount() {
-        var games = this.props.user.gameIds;
-        var gamesUrl = '';
-        for (var i = 0; i < games.length; i++) {
-            if(i < games.length -1) {
-                gamesUrl += 'gameId=' + games[i] + '&';
-            } else {
-                gamesUrl += 'gameId=' + games[i];
-            }
-        }
-        this.props.dispatch(getGameInfo(gamesUrl));
+        var gameIds = this.props.user.gameIds;
+        this.props.dispatch(getGameInfo(gameIds));
     }
 
-    gamesList() {
-        var gamesList = [];
-        var games = this.props.games.games.results;
-        for (var i in games) {
-            console.log("game: ", games[i]);
-            // friendsList.push(<Game key={j} friend={friends[j]} />);
-        }
-        return <p>Games!!!</p>
-
-    }
 
     loadGames() {
-        console.log("games: ", this.props.games.games);
-        var games = this.props.games.games;
-        if (games!= undefined){
+        console.log("games: ", this.props.games);
+        var games = this.props.games;
+        if (games){
+            var allGames = this.props.games;
+            var gamesList = allGames.map((game, index) => {
+                if(game.isValid) {
+                    return <Game key={index} game={game}/>
+                }
+            });
             return (
-                <div>
-                    {this.gamesList()}
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Genres</th>
+                            <th>Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {gamesList}
+                    </tbody>
+                </table>
             )
         }
     }
 
 
     friendsList() {
-        var friendsList = [];
         var friends = this.props.user.friends;
-        for (var j in friends) {
-            friendsList.push(<Friend key={j} friend={friends[j]} />);
-        }
+        return friends.map((friend, index) => <Friend key={index} friend={friend} />);
     }
 
     render() {
@@ -66,13 +60,18 @@ class Dash extends React.Component {
         )
     }
 
-};
+}
 
 const Game = (props) => {
+    var genresList = props.game.genres.join(', ');
+    var featuresList = props.game.features.join(', ');
     return(
-        <div>
-            <p>{props.game}</p>
-        </div>
+        <tr className="game">
+            <td><img src={props.game.iconUrl}/></td>
+            <td>{genresList}</td>
+            <td>{featuresList}</td>
+            <td><button><a  href={props.game.gameUrl}>Play!</a></button></td>
+        </tr>
     )
 };
 
@@ -87,8 +86,14 @@ const Friend = (props) => {
 
 const mapStateToProps = (state) => {
     console.log("state: ", state);
+    let games;
+    if(!state.currentGamesData.games) {
+        games = [];
+    } else {
+        games = state.currentGamesData.games.results;
+    }
     return {
-        games: state.currentGamesData,
+        games: games,
         user: state.currentUserData.user
     }
 };
