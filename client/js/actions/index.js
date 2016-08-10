@@ -47,3 +47,10 @@ export const getGameInfo = (gameIds) => {
             .then(json => dispatch(receiveGameData(json)));
     }
 };
+
+export const filterFeatures = (filters) => {
+  return {
+      filters: filters,
+      type: 'FEATURE_FILTERS'
+  }
+};

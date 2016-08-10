@@ -1,6 +1,7 @@
 
 const currentGamesData = (state = {
     isFetching: false,
+    visible: true
 }, action) => {
     switch(action.type) {
         case "REQUEST_GAMES":
